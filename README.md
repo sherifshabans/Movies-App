@@ -48,9 +48,9 @@ Special thanks to the open-source community for their valuable contributions and
 
 ![detail](https://github.com/sherifshabans/Movies-App/blob/main/Images/detail.jpg)
 
-![detail]2(https://github.com/sherifshabans/Movies-App/blob/main/Images/detail2.jpg)
+![detail2](https://github.com/sherifshabans/Movies-App/blob/main/Images/detail2.jpg)
 
-![similar]2(https://github.com/sherifshabans/Movies-App/blob/main/Images/similar.jpg)
+![similar](https://github.com/sherifshabans/Movies-App/blob/main/Images/similar.jpg)
 
 
 
