@@ -22,9 +22,36 @@ Special thanks to the open-source community for their valuable contributions and
 
 ## Images From The App
 
-![home1](https://github.com/sherifshabans/Movies-App/blob/main/Images/home1.jpg)<br>
-![home2](https://github.com/sherifshabans/Movies-App/blob/main/Images/home2.jpg)<br>
-![home3](https://github.com/sherifshabans/Movies-App/blob/main/Images/home2.jpg)<br>
+![home1](https://github.com/sherifshabans/Movies-App/blob/main/Images/home1.jpg)
+
+![home2](https://github.com/sherifshabans/Movies-App/blob/main/Images/home2.jpg)
+
+![home3](https://github.com/sherifshabans/Movies-App/blob/main/Images/home3.jpg)
+
+![trend](https://github.com/sherifshabans/Movies-App/blob/main/Images/trend.jpg)
+
+![tvfromhome](https://github.com/sherifshabans/Movies-App/blob/main/Images/tvfromhome.jpg)
+
+![toprated](https://github.com/sherifshabans/Movies-App/blob/main/Images/toprated.jpg)
+
+![recommended](https://github.com/sherifshabans/Movies-App/blob/main/Images/recommended.jpg)
+
+![popular](https://github.com/sherifshabans/Movies-App/blob/main/Images/popular.jpg)
+
+![upcoming](https://github.com/sherifshabans/Movies-App/blob/main/Images/upcoming.jpg)
+
+![tv](https://github.com/sherifshabans/Movies-App/blob/main/Images/tv.jpg)
+
+![search](https://github.com/sherifshabans/Movies-App/blob/main/Images/search.jpg)
+
+![search2](https://github.com/sherifshabans/Movies-App/blob/main/Images/search2.jpg)
+
+![detail](https://github.com/sherifshabans/Movies-App/blob/main/Images/detail.jpg)
+
+![detail]2(https://github.com/sherifshabans/Movies-App/blob/main/Images/detail2.jpg)
+
+![similar]2(https://github.com/sherifshabans/Movies-App/blob/main/Images/similar.jpg)
+
 
 
 
