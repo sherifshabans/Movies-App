@@ -3,6 +3,7 @@ package com.elsharif.moviesapp.util
 object Constants {
 
     const val POPULAR = "popular"
+    const val UPCOMING = "upcoming"
     const val TOP_RATED = "top_rated"
     const val NOW_PLAYING = "now_playing"
     const val TRENDING_TIME = "day"
@@ -15,6 +16,7 @@ object Constants {
     const val topRatedAllListScreen = "topRatedAllListScreen"
     const val recommendedListScreen = "recommendedListScreen"
     const val popularScreen = "popularScreen"
+    const val upcomingScreen = "upcomingScreen"
     const val tvSeriesScreen = "tvSeriesScreen"
     const val searchScreen = "searchScreen"
     const val homeScreen = "searchScreen"

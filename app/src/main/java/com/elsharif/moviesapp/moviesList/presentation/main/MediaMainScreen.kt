@@ -8,9 +8,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.LiveTv
 import androidx.compose.material.icons.filled.LocalFireDepartment
+import androidx.compose.material.icons.filled.Upcoming
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.LiveTv
 import androidx.compose.material.icons.outlined.LocalFireDepartment
+import androidx.compose.material.icons.outlined.Upcoming
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -58,6 +60,11 @@ fun MediaMainScreen(
             unselectedIcon = Icons.Outlined.LocalFireDepartment,
         ),
         BottomNavigationItem(
+            title = "Upcoming",
+            selectedIcon = Icons.Filled.Upcoming,
+            unselectedIcon = Icons.Outlined.Upcoming,
+        ),
+        BottomNavigationItem(
             title = "Tv Series",
             selectedIcon = Icons.Filled.LiveTv,
             unselectedIcon = Icons.Outlined.LiveTv
@@ -101,8 +108,11 @@ fun MediaMainScreen(
                                 1 -> bottomBarNavController.navigate(
                                     "${BottomNavRoute.MEDIA_LIST_SCREEN}?type=${Constants.popularScreen}"
                                 )
-
                                 2 -> bottomBarNavController.navigate(
+                                    "${BottomNavRoute.MEDIA_LIST_SCREEN}?type=${Constants.upcomingScreen}"
+                                )
+
+                                3 -> bottomBarNavController.navigate(
                                     "${BottomNavRoute.MEDIA_LIST_SCREEN}?type=${Constants.tvSeriesScreen}"
                                 )
                             }

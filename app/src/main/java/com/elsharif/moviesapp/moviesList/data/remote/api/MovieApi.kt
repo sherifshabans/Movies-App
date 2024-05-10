@@ -16,6 +16,7 @@ interface MovieApi {
         @Query("api_key") apiKey: String
     ): MovieListDto
 
+
     @GET("trending/{type}/{time}")
     suspend fun getTrendingList(
         @Path("type") type: String,

@@ -15,6 +15,7 @@ import com.elsharif.moviesapp.util.Constants.POPULAR
 import com.elsharif.moviesapp.util.Constants.TOP_RATED
 import com.elsharif.moviesapp.util.Constants.TRENDING_TIME
 import com.elsharif.moviesapp.util.Constants.TV
+import com.elsharif.moviesapp.util.Constants.UPCOMING
 import com.elsharif.moviesapp.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -47,11 +48,13 @@ class MainViewModel @Inject constructor(
 
     private fun load(fetchFromRemote: Boolean = false) {
         loadPopularMovies(fetchFromRemote)
+        loadUpcomingMovies(fetchFromRemote)
         loadTopRatedMovies(fetchFromRemote)
         loadNowPlayingMovies(fetchFromRemote)
 
         loadTopRatedTvSeries(fetchFromRemote)
         loadPopularTvSeries(fetchFromRemote)
+        loadUpcomingTvSeries(fetchFromRemote)
 
         loadTrendingAll(fetchFromRemote)
 
@@ -115,6 +118,12 @@ class MainViewModel @Inject constructor(
                             isRefresh = true
                         )
                     }
+                    Constants.upcomingScreen -> {
+                        loadUpcomingMovies(
+                            fetchFromRemote = true,
+                            isRefresh = true
+                        )
+                    }
 
                     Constants.trendingAllListScreen -> {
                         loadTrendingAll(
@@ -125,6 +134,10 @@ class MainViewModel @Inject constructor(
 
                     Constants.tvSeriesScreen -> {
                         loadPopularTvSeries(
+                            fetchFromRemote = true,
+                            isRefresh = true
+                        )
+                        loadUpcomingTvSeries(
                             fetchFromRemote = true,
                             isRefresh = true
                         )
@@ -149,6 +162,10 @@ class MainViewModel @Inject constructor(
                         // used to create the tvSeries list. So if i don't call it here I we will
                         // have more TopRated items than Popular ones.
                         loadPopularTvSeries(
+                            fetchFromRemote = true,
+                            isRefresh = true
+                        )
+                        loadUpcomingTvSeries(
                             fetchFromRemote = true,
                             isRefresh = true
                         )
@@ -185,6 +202,7 @@ class MainViewModel @Inject constructor(
                         // used to create the tvSeries list. So if i don't call it here I we will
                         // have more TopRated items than Popular ones.
                         loadPopularTvSeries(true)
+                        loadUpcomingTvSeries(true)
                     }
 
                     Constants.popularScreen -> {
@@ -193,8 +211,15 @@ class MainViewModel @Inject constructor(
                         loadPopularMovies(true)
                     }
 
+                    Constants.upcomingScreen -> {
+
+                        Timber.tag(Constants.GET_TAG).d("onOnPaginate: popularScreen")
+                        loadUpcomingMovies(true)
+                    }
+
                     Constants.tvSeriesScreen -> {
                         loadPopularTvSeries(true)
+                        loadUpcomingMovies(true)
                         loadTopRatedTvSeries(true)
                     }
 
@@ -299,6 +324,65 @@ class MainViewModel @Inject constructor(
                                             popularMoviesList =
                                             mainUiState.value.popularMoviesList + shuffledMediaList.toList(),
                                             popularMoviesPage = mainUiState.value.popularMoviesPage + 1
+                                        )
+                                    }
+                                }
+
+                            }
+                        }
+
+                        is Resource.Error -> Unit
+
+                        is Resource.Loading -> {
+                            _mainUiState.update {
+                                it.copy(
+                                    isLoading = result.isLoading
+                                )
+                            }
+                        }
+                    }
+                }
+        }
+    }
+
+    private fun loadUpcomingMovies(
+        fetchFromRemote: Boolean = false,
+        isRefresh: Boolean = false
+    ) {
+
+        viewModelScope.launch {
+
+            mediaRepository
+                .getMoviesAndTvSeriesList(
+                    fetchFromRemote,
+                    isRefresh,
+                    MOVIE,
+                    UPCOMING,
+                    mainUiState.value.upcomingMoviesPage,
+                    API_KEY
+                )
+                .collect { result ->
+                    when (result) {
+                        is Resource.Success -> {
+                            result.data?.let { mediaList ->
+
+                                val shuffledMediaList = mediaList.toMutableList()
+                                shuffledMediaList.shuffle()
+
+                                if (isRefresh) {
+                                    _mainUiState.update {
+                                        it.copy(
+                                            upcomingMoviesList = shuffledMediaList.toList(),
+                                            upcomingMoviesPage = 1
+                                        )
+                                    }
+                                } else {
+
+                                    _mainUiState.update {
+                                        it.copy(
+                                            upcomingMoviesList =
+                                            mainUiState.value.upcomingMoviesList + shuffledMediaList.toList(),
+                                            upcomingMoviesPage = mainUiState.value.upcomingMoviesPage + 1
                                         )
                                     }
                                 }
@@ -561,6 +645,70 @@ class MainViewModel @Inject constructor(
                                             popularTvSeriesList =
                                             mainUiState.value.popularTvSeriesList + shuffledMediaList.toList(),
                                             popularTvSeriesPage = mainUiState.value.popularTvSeriesPage + 1
+                                        )
+                                    }
+                                }
+
+
+                                createTvSeriesList(
+                                    mediaList = mediaList,
+                                    isRefresh = isRefresh
+                                )
+                            }
+                        }
+
+                        is Resource.Error -> Unit
+
+                        is Resource.Loading -> {
+                            _mainUiState.update {
+                                it.copy(
+                                    isLoading = result.isLoading
+                                )
+                            }
+                        }
+                    }
+                }
+        }
+    }
+    private fun loadUpcomingTvSeries(
+        fetchFromRemote: Boolean = false,
+        isRefresh: Boolean = false
+    ) {
+
+        viewModelScope.launch {
+
+
+            mediaRepository
+                .getMoviesAndTvSeriesList(
+                    fetchFromRemote,
+                    isRefresh,
+                    TV,
+                    UPCOMING,
+                    mainUiState.value.upcomingTvSeriesPage,
+                    API_KEY
+                )
+                .collect { result ->
+                    when (result) {
+                        is Resource.Success -> {
+                            result.data?.let { mediaList ->
+
+                                val shuffledMediaList = mediaList.toMutableList()
+                                shuffledMediaList.shuffle()
+
+
+                                if (isRefresh) {
+                                    _mainUiState.update {
+                                        it.copy(
+                                            upcomingTvSeriesList = shuffledMediaList.toList(),
+                                            upcomingTvSeriesPage = 1
+                                        )
+                                    }
+                                } else {
+                                    _mainUiState.update {
+                                        it.copy(
+                                            upcomingTvSeriesList =
+                                            mainUiState.value.upcomingTvSeriesList + shuffledMediaList.toList(),
+                                            upcomingTvSeriesPage = mainUiState.value.upcomingTvSeriesPage + 1
                                         )
                                     }
                                 }

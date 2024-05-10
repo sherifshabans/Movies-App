@@ -48,6 +48,7 @@ import com.elsharif.moviesapp.util.Constants.recommendedListScreen
 import com.elsharif.moviesapp.util.Constants.topRatedAllListScreen
 import com.elsharif.moviesapp.util.Constants.trendingAllListScreen
 import com.elsharif.moviesapp.util.Constants.tvSeriesScreen
+import com.elsharif.moviesapp.util.Constants.upcomingScreen
 import com.elsharif.moviesapp.util.ui_shared_components.ListShimmerEffect
 import com.elsharif.moviesapp.util.ui_shared_components.MediaItem
 import com.elsharif.moviesapp.util.ui_shared_components.NonFocusedTopBar
@@ -96,6 +97,7 @@ fun MediaListScreen(
         topRatedAllListScreen -> mainUiState.topRatedAllList
         recommendedListScreen -> mainUiState.recommendedAllList
         tvSeriesScreen -> mainUiState.tvSeriesList
+        upcomingScreen -> mainUiState.upcomingMoviesList
         else -> mainUiState.popularMoviesList
     }
 
@@ -106,6 +108,7 @@ fun MediaListScreen(
         tvSeriesScreen -> stringResource(id = R.string.tv_series)
         recommendedListScreen -> stringResource(id = R.string.recommended)
         popularScreen -> stringResource(id = R.string.popular)
+        upcomingScreen -> stringResource(R.string.upcoming)
         else -> ""
     }
 
