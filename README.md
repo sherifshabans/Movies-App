@@ -23,4 +23,8 @@ Special thanks to the open-source community for their valuable contributions and
 ## Images From The App
 
 ![home1](https://github.com/sherifshabans/Movies-App/blob/main/Images/home1.jpg)
+![home2](https://github.com/sherifshabans/Movies-App/blob/main/Images/home2.jpg)
+![home3](https://github.com/sherifshabans/Movies-App/blob/main/Images/home2.jpg)
+
+
 
