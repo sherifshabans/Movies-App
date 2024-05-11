@@ -19,6 +19,8 @@ With this app you can get information about movies and TV series, watch trailer,
 ## Acknowledgments
 
 Special thanks to the open-source community for their valuable contributions and support.
+Thanks for https://github.com/ahmed-guedmioui
+and his Great Tutorial :https://github.com/ahmed-guedmioui/The-Movies-Info 
 
 ## Images From The App
 
