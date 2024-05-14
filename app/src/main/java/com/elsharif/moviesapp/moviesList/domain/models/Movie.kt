@@ -26,6 +26,7 @@ data class Movie(
     var tagline: String?,
     val videos: List<String>?,
     var similarMediaList: List<Int>,
+    var recommendationsMediaList: List<Int>,
 ): Parcelable
 
 

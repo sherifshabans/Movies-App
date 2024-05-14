@@ -24,5 +24,6 @@ data class MovieDto(
     var category: String? = null,
     val videos: List<String>?,
     val similarMediaList: List<Int>? = null,
+    val recommendationsMediaList: List<Int>? = null,
 
     )

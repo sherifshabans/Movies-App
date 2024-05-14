@@ -46,6 +46,11 @@ fun MovieDto.toMovieEntity(
         } catch (e: Exception) {
             "-1,-2"
         },
+        recommendationsMediaList = try {
+            recommendationsMediaList?.joinToString(",") ?: "-1,-2"
+        } catch (e: Exception) {
+            "-1,-2"
+        },
         firstAirDate = first_air_date ?: "",
         video = video ?: false,
 
@@ -81,7 +86,8 @@ fun MovieDto.toMovie(
         status = null,
         tagline = null,
         videos = videos,
-        similarMediaList = similarMediaList ?: emptyList()
+        similarMediaList = similarMediaList ?: emptyList(),
+        recommendationsMediaList = recommendationsMediaList ?: emptyList()
     )
 }
 
@@ -118,6 +124,11 @@ fun Movie.toMovieEntity(): MovieEntity {
         },
         similarMediaList = try {
             similarMediaList.joinToString(",")
+        } catch (e: Exception) {
+            "-1,-2"
+        },
+        recommendationsMediaList = try {
+            recommendationsMediaList.joinToString(",")
         } catch (e: Exception) {
             "-1,-2"
         },
@@ -173,6 +184,11 @@ fun MovieEntity.toMovie(
         },
         similarMediaList = try {
             similarMediaList?.split(",")!!.map { it.toInt() }
+        } catch (e: Exception) {
+            listOf(-1, -2)
+        },
+        recommendationsMediaList = try {
+            recommendationsMediaList?.split(",")!!.map { it.toInt() }
         } catch (e: Exception) {
             listOf(-1, -2)
         },

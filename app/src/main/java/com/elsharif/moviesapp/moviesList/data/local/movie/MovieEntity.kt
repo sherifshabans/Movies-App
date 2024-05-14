@@ -31,6 +31,7 @@ data class MovieEntity(
     var status: String,
     var tagline: String,
     var similarMediaList: String,
+    var recommendationsMediaList: String,
 
     )
 

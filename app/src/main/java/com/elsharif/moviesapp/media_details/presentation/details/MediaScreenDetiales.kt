@@ -167,6 +167,15 @@ fun MediaDetailScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            RecommendationsMediaSection(
+                navController = navController,
+                media = media,
+                mediaDetailsScreenState = mediaDetailsScreenState
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+
         }
 
         PullRefreshIndicator(
@@ -291,7 +300,7 @@ fun PosterSection(
 fun InfoSection(
     media: Movie,
     mediaDetailsScreenState: MediaDetailsScreenState,
-) {
+){
 
     val genres = genresProvider(
         genre_ids = media.genreIds,
@@ -464,6 +473,70 @@ fun SimilarMediaSection(
                         .clickable {
                             navController.navigate(
                                 "${Route.SIMILAR_MEDIA_LIST_SCREEN}?title=${media.title}"
+                            )
+                        },
+                    text = stringResource(id = R.string.see_all),
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontFamily = font,
+                    fontSize = 14.sp,
+                )
+            }
+
+            LazyRow {
+                items(mediaList.size) {
+
+                    var paddingEnd = 0.dp
+                    if (it == mediaList.size - 1) {
+                        paddingEnd = 16.dp
+                    }
+
+                    Item(
+                        media = mediaList[it],
+                        navController = navController,
+                        modifier = Modifier
+                            .height(200.dp)
+                            .width(150.dp)
+                            .padding(start = 16.dp, end = paddingEnd)
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun RecommendationsMediaSection(
+    navController: NavController,
+    media: Movie,
+    mediaDetailsScreenState: MediaDetailsScreenState,
+) {
+
+    val title = stringResource(id = R.string.recommendations)
+    val mediaList = mediaDetailsScreenState.smallRecommendationsMediaList
+
+    if (mediaList.isNotEmpty()) {
+        Column {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 22.dp, end = 22.dp, top = 22.dp, bottom = 10.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = title,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontFamily = font,
+                    fontSize = 18.sp
+                )
+
+                Text(
+                    modifier = Modifier
+                        .alpha(0.85f)
+                        .clickable {
+                            navController.navigate(
+                                "${Route.RECOMMENDATIONS_MEDIA_LIST_SCREEN}?title=${media.title}"
                             )
                         },
                     text = stringResource(id = R.string.see_all),

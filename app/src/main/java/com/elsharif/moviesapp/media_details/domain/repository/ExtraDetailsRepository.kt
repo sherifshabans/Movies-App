@@ -15,6 +15,14 @@ interface ExtraDetailsRepository {
         apiKey: String
     ): Flow<Resource<List<Movie>>>
 
+    suspend fun getRecommendationsMediaList(
+        isRefresh: Boolean,
+        type: String,
+        id: Int,
+        page: Int,
+        apiKey: String
+    ): Flow<Resource<List<Movie>>>
+
     suspend fun getCastList(
         isRefresh: Boolean,
         id: Int,

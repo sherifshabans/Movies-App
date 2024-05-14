@@ -1,6 +1,8 @@
 package com.elsharif.moviesapp.moviesList.presentation.main
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
@@ -18,6 +20,7 @@ import com.elsharif.moviesapp.media_details.presentation.details.MediaDetailsScr
 import com.elsharif.moviesapp.media_details.presentation.details.MediaDetailsViewModel
 import com.elsharif.moviesapp.media_details.presentation.details.MediaDetailScreen
 import com.elsharif.moviesapp.media_details.presentation.details.SomethingWentWrong
+import com.elsharif.moviesapp.media_details.presentation.recommendations_media.RecommendationsMediaListScreen
 import com.elsharif.moviesapp.media_details.presentation.similar_media.SimilarMediaListScreen
 import com.elsharif.moviesapp.media_details.presentation.watch_video.WatchVideoScreen
 import com.elsharif.moviesapp.search.presentation.SearchScreen
@@ -54,6 +57,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@SuppressLint("LogNotTimber")
 @Composable
 fun Navigation(
     mainUiState: MainUiState,
@@ -108,6 +112,8 @@ fun Navigation(
                         category = category
                     )
                 )
+                 Log.i("Details of media","Here ${mainUiState.moviesGenresList}")
+                 Log.i("Details of media2","Here ${mainUiState.tvGenresList}")
             }
 
             if (mediaDetailsScreenState.media != null) {
@@ -132,6 +138,22 @@ fun Navigation(
             val name = it.arguments?.getString("title") ?: ""
 
             SimilarMediaListScreen(
+                navController = navController,
+                mediaDetailsScreenState = mediaDetailsScreenState,
+                name = name,
+            )
+        }
+
+        composable(
+            "${Route.RECOMMENDATIONS_MEDIA_LIST_SCREEN}?title={title}",
+            arguments = listOf(
+                navArgument("title") { type = NavType.StringType },
+            )
+        ) {
+
+            val name = it.arguments?.getString("title") ?: ""
+
+            RecommendationsMediaListScreen(
                 navController = navController,
                 mediaDetailsScreenState = mediaDetailsScreenState,
                 name = name,

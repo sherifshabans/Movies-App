@@ -134,6 +134,113 @@ class ExtraDetailsRepositoryImpl @Inject constructor(
         }
 
     }
+    override suspend fun getRecommendationsMediaList(
+        isRefresh: Boolean,
+        type: String,
+        id: Int,
+        page: Int,
+        apiKey: String
+    ): Flow<Resource<List<Movie>>> {
+
+        return flow {
+
+            emit(Resource.Loading(true))
+
+            val mediaEntity = mediaDao.getMediaById(id = id)
+
+            val doesRecommendationsMediaListExist =
+                (mediaEntity.recommendationsMediaList != null && mediaEntity.recommendationsMediaList != "-1,-2")
+
+            if (!isRefresh && doesRecommendationsMediaListExist) {
+
+                try {
+                    val recommendationsMediaListIds =
+                        mediaEntity.recommendationsMediaList?.split(",")!!.map { it.toInt() }
+
+                    val recommendationsMediaEntityList = ArrayList<MovieEntity>()
+                    for (i in recommendationsMediaListIds.indices) {
+                        recommendationsMediaEntityList.add(mediaDao.getMediaById(recommendationsMediaListIds[i]))
+                    }
+                    emit(
+                        Resource.Success(
+                            data = recommendationsMediaEntityList.map {
+                                it.toMovie(
+                                    type = it.mediaType ?: Constants.MOVIE,
+                                    category = it.category ?: Constants.POPULAR
+                                )
+                            }
+                        )
+                    )
+                } catch (e: Exception) {
+                    emit(Resource.Error("Something went wrong."))
+                }
+
+
+                emit(Resource.Loading(false))
+                return@flow
+
+
+            }
+
+            val remoteRecommendationsMediaList = fetchRemoteForRecommendationsMediaList(
+                type = mediaEntity.mediaType ?: Constants.MOVIE,
+                id = id,
+                page = page,
+                apiKey = apiKey
+            )
+
+            if (remoteRecommendationsMediaList == null) {
+                emit(
+                    Resource.Success(
+                        data = emptyList()
+                    )
+                )
+                emit(Resource.Loading(false))
+                return@flow
+            }
+
+            remoteRecommendationsMediaList.let { recommendationsMediaList ->
+
+                val recommendationsMediaListIntIds = ArrayList<Int>()
+                for (i in recommendationsMediaList.indices) {
+                    recommendationsMediaListIntIds.add(recommendationsMediaList[i].id ?: -1)
+                }
+
+                mediaEntity.recommendationsMediaList = try {
+                    recommendationsMediaListIntIds.joinToString(",")
+                } catch (e: Exception) {
+                    "-1,-2"
+                }
+
+                val recommendationsMediaEntityList = remoteRecommendationsMediaList.map {
+                    it.toMovieEntity(
+                        type = it.media_type ?: Constants.MOVIE,
+                        category = mediaEntity.category ?: Constants.POPULAR
+                    )
+                }
+
+                mediaDao.insertMediaList(recommendationsMediaEntityList)
+                mediaDao.updateMediaItem(mediaEntity)
+
+                emit(
+                    Resource.Success(
+                        data = recommendationsMediaEntityList.map {
+                            it.toMovie(
+                                type = it.mediaType ?: Constants.MOVIE,
+                                category = it.category ?: Constants.POPULAR
+                            )
+                        }
+                    )
+                )
+
+                emit(Resource.Loading(false))
+
+            }
+
+
+        }
+
+    }
 
     private suspend fun fetchRemoteForSimilarMediaList(
         type: String,
@@ -158,6 +265,32 @@ class ExtraDetailsRepositoryImpl @Inject constructor(
         }
 
         return remoteSimilarMediaList?.results
+
+    }
+
+    private suspend fun fetchRemoteForRecommendationsMediaList(
+        type: String,
+        id: Int,
+        page: Int,
+        apiKey: String
+    ): List<MovieDto>? {
+
+        val remoteRecommendationsMediaList = try {
+            extraDetailsApi.getRecommendationsMediaList(
+                type = type,
+                id = id,
+                page = page,
+                apiKey = apiKey
+            )
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
+        } catch (e: HttpException) {
+            e.printStackTrace()
+            null
+        }
+
+        return remoteRecommendationsMediaList?.results
 
     }
 

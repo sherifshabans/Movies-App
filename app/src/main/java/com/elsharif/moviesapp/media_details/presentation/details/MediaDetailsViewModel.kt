@@ -82,6 +82,9 @@ class MediaDetailsViewModel @Inject constructor(
             loadSimilarMedialList(
                 isRefresh = isRefresh
             )
+            loadRecommendationsMedialList(
+                isRefresh = isRefresh
+            )
 
             loadVideosList(
                 isRefresh = isRefresh
@@ -173,6 +176,44 @@ class MediaDetailsViewModel @Inject constructor(
                                     it.copy(
                                         similarMediaList = similarMediaList,
                                         smallSimilarMediaList = similarMediaList.take(10)
+                                    )
+                                }
+                            }
+                        }
+
+                        is Resource.Error -> {}
+
+                        is Resource.Loading -> {
+                            _mediaDetailsScreenState.update {
+                                it.copy(
+                                    isLoading = result.isLoading
+                                )
+                            }
+                        }
+                    }
+                }
+        }
+    }
+    private fun loadRecommendationsMedialList(isRefresh: Boolean) {
+
+        viewModelScope.launch {
+
+            extraDetailsRepository
+                .getRecommendationsMediaList(
+                    isRefresh = isRefresh,
+                    id = mediaDetailsScreenState.value.media?.id ?: 0,
+                    type = mediaDetailsScreenState.value.media?.mediaType ?: "",
+                    page = 1,
+                    apiKey = API_KEY
+                )
+                .collect { result ->
+                    when (result) {
+                        is Resource.Success -> {
+                            result.data?.let { recommendationsMediaList ->
+                                _mediaDetailsScreenState.update {
+                                    it.copy(
+                                        recommendationsMediaList = recommendationsMediaList,
+                                        smallRecommendationsMediaList = recommendationsMediaList.take(10)
                                     )
                                 }
                             }
