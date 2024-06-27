@@ -24,66 +24,15 @@ and his Great Tutorial :https://github.com/ahmed-guedmioui/The-Movies-Info
 
 ## Images From The App
 
-![home1](https://github.com/sherifshabans/Movies-App/blob/main/Images/home1.jpg)
+![home1](https://github.com/sherifshabans/Movies-App/blob/main/Images/Cover1.jpg)
 
-**Home**
+**Cover**
 
-![home2](https://github.com/sherifshabans/Movies-App/blob/main/Images/home2.jpg)
+![home2](https://github.com/sherifshabans/Movies-App/blob/main/Images/Cover.jpg)
 
-**Home**
-
-![home3](https://github.com/sherifshabans/Movies-App/blob/main/Images/home3.jpg)
-
-**Home**
+**Other Screens**
 
 
-![trend](https://github.com/sherifshabans/Movies-App/blob/main/Images/trend.jpg)
-
-**Trending Now**
-
-![tvfromhome](https://github.com/sherifshabans/Movies-App/blob/main/Images/tvfromhome.jpg)
-
-**TV Series**
-
-![toprated](https://github.com/sherifshabans/Movies-App/blob/main/Images/toprated.jpg)
-
-**Top Rated**
-
-![recommended](https://github.com/sherifshabans/Movies-App/blob/main/Images/recommended.jpg)
-
-**Recommended**
-
-![popular](https://github.com/sherifshabans/Movies-App/blob/main/Images/popular.jpg)
-
-**Popular**
-
-![upcoming](https://github.com/sherifshabans/Movies-App/blob/main/Images/upcoming.jpg)
-
-**Upcoming**
-
-![tv](https://github.com/sherifshabans/Movies-App/blob/main/Images/tv.jpg)
-
-**TV**
-
-![search](https://github.com/sherifshabans/Movies-App/blob/main/Images/search.jpg)
-
-**Search**
-
-![search2](https://github.com/sherifshabans/Movies-App/blob/main/Images/search2.jpg)
-
-**Search**
-
-![detail](https://github.com/sherifshabans/Movies-App/blob/main/Images/detail.jpg)
-
-**details**
-
-![detail2](https://github.com/sherifshabans/Movies-App/blob/main/Images/detail2.jpg)
-
-**details**
-
-![similar](https://github.com/sherifshabans/Movies-App/blob/main/Images/similar.jpg)
-
-**Similar**
 
 
 
