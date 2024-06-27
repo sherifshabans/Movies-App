@@ -24,11 +24,11 @@ and his Great Tutorial :https://github.com/ahmed-guedmioui/The-Movies-Info
 
 ## Images From The App
 
-![home1](https://github.com/sherifshabans/Movies-App/blob/main/Images/Cover1.jpg)
+![home1](https://github.com/sherifshabans/Movies-App/blob/main/Images/Cover1.png)
 
 **Cover**
 
-![home2](https://github.com/sherifshabans/Movies-App/blob/main/Images/Cover.jpg)
+![home2](https://github.com/sherifshabans/Movies-App/blob/main/Images/Cover.png)
 
 **Other Screens**
 
